@@ -6,6 +6,7 @@ const config: ClientConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
   useCdn: isProduction(),
   apiVersion: "2021-08-23",
+  withCredentials: true
 };
 
 if (!config.projectId) {
