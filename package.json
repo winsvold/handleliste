@@ -1,0 +1,48 @@
+{
+  "name": "handleliste",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"next\" \"cd studio && sanity start\"",
+    "build": "echo 'Building Sanity to public/cms…' && cd studio && sanity build ../public/cms -y && cd .. && next build",
+    "start": "next start",
+    "test": "jest",
+    "typeCheck": "tsc",
+    "postinstall": "lerna bootstrap"
+     },
+  "dependencies": {
+    "next": "^11.1.0",
+    "next-sanity": "^0.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.0"
+  },
+  "devDependencies": {
+    "identity-obj-proxy": "^3.0.0",
+    "@sanity/cli": "^2.15.0",
+    "@types/node": "^16.7.1",
+    "@types/react": "^17.0.19",
+    "@types/styled-components": "^5.1.12",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-styled-components": "^1.13.2",
+    "concurrently": "^6.2.1",
+    "husky": "^4.3.8",
+    "jest": "^27.0.6",
+    "lerna": "^4.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "prettier": {
+    "printWidth": 120
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run typeCheck && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,md,ts,tsx}": "prettier --write"
+  }
+}
