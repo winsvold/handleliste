@@ -2,11 +2,11 @@ import { createImageUrlBuilder, createPreviewSubscriptionHook, createClient, Cli
 import { isProduction } from "./environment";
 
 const config: ClientConfig = {
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
   useCdn: isProduction(),
   apiVersion: "2021-08-23",
-  withCredentials: true
+  withCredentials: true,
 };
 
 if (!config.projectId) {
@@ -21,3 +21,13 @@ export const urlFor = (source: any) => createImageUrlBuilder(config).image(sourc
 export const usePreviewSubscription = createPreviewSubscriptionHook(config);
 
 export const sanityClient = createClient(config);
+
+import { isDevelopment } from "./environment";
+
+export function getStudioUrl() {
+  if (isDevelopment()) {
+    return "http://localhost:3333/cms";
+  }
+
+  return "/cms";
+}
