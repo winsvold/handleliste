@@ -9,12 +9,12 @@ export default {
     {
       name: "items",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "item" }],
     },
     {
       name: "checkedItems",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "item" }],
     },
   ],
   preview: {
