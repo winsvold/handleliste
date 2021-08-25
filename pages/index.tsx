@@ -1,13 +1,25 @@
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { sanityClient } from "../utils/sanity";
-import { FormEvent, useState } from "react";
 import AuthStatus from "../components/AuthStatus";
 import { guid } from "../studio/utils/guid";
+import LeggTilTing from "../components/LeggTilTing";
+import Ting from "../components/Ting";
+import styled from "styled-components/macro";
 
-const handlelisteDocId = "handleListe";
-const query = `*[_id == "${handlelisteDocId}"][0]`;
+export const handlelisteDocId = "handleListe";
+export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
 
-interface Item {
+const Style = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding: 1rem;
+`;
+
+const StyledUl = styled.ul``;
+
+export interface Item {
   name: string;
 }
 
@@ -17,56 +29,41 @@ interface HandleListeResponse {
 }
 
 function Index() {
-  const response = useSWR<HandleListeResponse>(query, (q) => sanityClient.fetch(q));
+  const response = useSWR<HandleListeResponse>(handlelisteQuery, (q) => sanityClient.fetch(q));
   const items = response.data?.items || [];
   const checkedItems = response.data?.checkedItems || [];
-  const [input, setInput] = useState("");
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setInput("");
-    await sanityClient
-      .patch(handlelisteDocId)
-      .append("items", [{ name: input, _key: guid() }])
-      .commit();
-    mutate(query); // forteller SWR at det skal refetches
-  };
-
-  const onCheck = async (ting: string, check: boolean) => {
+  const onCheck = async (ting: Item, check: boolean) => {
     if (check) {
       await sanityClient
         .patch(handlelisteDocId)
-        .append("checkedItems", [{ name: ting, _key: guid() }])
+        .append("checkedItems", [{ name: ting.name, _key: guid() }])
         .commit();
     } else {
       await sanityClient
         .patch(handlelisteDocId)
-        .unset([`[checkedItems[name=="${ting}"]]`])
+        .unset([`[checkedItems[name=="${ting.name}"]]`])
         .commit();
     }
-    mutate(query); // forteller SWR at det skal refetches
+    response.revalidate();
   };
 
   return (
     <div>
       <AuthStatus />
-      <h2>Handleliste:</h2>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Legg til ting" value={input} onChange={(e) => setInput(e.target.value)} />
-      </form>
-      <ul>
-        {items.map((ting) => {
-          const isChecked = checkedItems.some((checkedItem) => ting.name === checkedItem.name);
-          return (
-            <li key={ting.name}>
-              <label>
-                <input onClick={() => onCheck(ting.name, !isChecked)} checked={isChecked} type="checkbox" />
-                {ting.name}
-              </label>
-            </li>
-          );
-        })}
-      </ul>
+      <Style>
+        <LeggTilTing reload={response.revalidate} />
+        <h2>Handleliste:</h2>
+        <StyledUl>
+          {items.map((ting) => (
+            <Ting
+              isChecked={checkedItems.some((checkedItem) => ting.name === checkedItem.name)}
+              onCheck={onCheck}
+              ting={ting}
+            />
+          ))}
+        </StyledUl>
+      </Style>
     </div>
   );
 }

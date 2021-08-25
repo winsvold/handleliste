@@ -26,7 +26,7 @@ import { isDevelopment } from "./environment";
 
 export function getStudioUrl() {
   if (isDevelopment()) {
-    return "http://localhost:3333/cms";
+    return location.origin + "/cms";
   }
 
   return "/cms";

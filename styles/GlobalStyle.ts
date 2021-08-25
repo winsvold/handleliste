@@ -10,6 +10,8 @@ export const GlobalStyle = createGlobalStyle`
     color: #ddd;
     background-color: #111;
     font-family: 'Roboto', sans-serif;
+    
+    --tint: palegoldenrod;
   }
   
   body {
@@ -19,6 +21,6 @@ export const GlobalStyle = createGlobalStyle`
   
   *:focus {
     outline: none;
-    box-shadow: orange;
+    box-shadow: 0 0 0 0.2rem orange;
   }
 `;
