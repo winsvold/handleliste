@@ -12,10 +12,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     
     --tint: palegoldenrod;
+    --bg-color: #181818;
   }
   
   body {
-    background-color: #181818;
+    background-color: var(--bg-color);
     min-height: 100vh;
   }
   

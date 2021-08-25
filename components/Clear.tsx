@@ -2,8 +2,13 @@ import styled from "styled-components/macro";
 import Button from "./basicComponents/Button";
 import { sanityClient } from "../utils/sanity";
 import { handlelisteDocId, Item } from "../pages";
+import { gradientBorder } from "../styles/gradientBorders";
 
-const Style = styled.div``;
+const Style = styled.div`
+  button {
+    ${gradientBorder("hsl(0deg 100% 28%)", "hsl(0deg 100% 58%)")};
+  }
+`;
 
 interface Props {
   reload: () => void;
