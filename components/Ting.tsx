@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
-import { Item } from "../pages";
+import { handlelisteDocId, Item } from "../pages";
 import Checkbox from "./basicComponents/Checkbox";
+import { sanityClient } from "../utils/sanity";
 
 const Style = styled.li`
   & + & {
@@ -10,15 +11,24 @@ const Style = styled.li`
 
 interface Props {
   ting: Item;
-  onCheck: (ting: Item) => void;
+  reload: () => void;
 }
 
 function Ting(props: Props) {
+  const onCheck = async (ting: Item) => {
+    const oppdatertTing: Item = { ...ting, checked: !ting.checked };
+    await sanityClient
+      .patch(handlelisteDocId)
+      .insert("replace", `[items[_key=="${ting._key}"]]`, [oppdatertTing])
+      .commit();
+    props.reload();
+  };
+
   return (
     <Style key={props.ting.name}>
       <Checkbox
         label={props.ting.name}
-        onClick={() => props.onCheck(props.ting)}
+        onClick={() => onCheck(props.ting)}
         checked={!!props.ting.checked}
         type="checkbox"
       />
