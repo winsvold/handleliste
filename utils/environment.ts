@@ -11,3 +11,7 @@ export function isTest(): boolean {
 export function isDevelopment(): boolean {
   return environment === "development";
 }
+
+export function isClient(): boolean {
+  return typeof window !== "undefined";
+}

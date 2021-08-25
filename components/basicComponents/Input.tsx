@@ -1,7 +1,7 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, useRef } from "react";
 import styled from "styled-components";
-import { guid } from "../../studio/utils/guid";
 import { commonInteractiveElementStyling } from "./common";
+import { guid } from "../../studio/utils/guid";
 
 const Style = styled.div`
   display: inline-flex;
@@ -19,7 +19,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = (props: Props) => {
-  const id = guid();
+  const id = useRef(guid()).current;
   const { label, className, ...rest } = props;
   return (
     <Style className={className}>

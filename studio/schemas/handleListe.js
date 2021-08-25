@@ -11,11 +11,6 @@ export default {
       type: "array",
       of: [{ type: "item" }],
     },
-    {
-      name: "checkedItems",
-      type: "array",
-      of: [{ type: "item" }],
-    },
   ],
   preview: {
     select: {},

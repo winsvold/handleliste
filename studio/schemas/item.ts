@@ -9,5 +9,9 @@ export default {
       name: "name",
       type: "string",
     },
+    {
+      name: "checked",
+      type: "boolean",
+    },
   ],
 };

@@ -10,8 +10,7 @@ const Style = styled.li`
 
 interface Props {
   ting: Item;
-  isChecked: boolean;
-  onCheck: (ting: Item, check: boolean) => void;
+  onCheck: (ting: Item) => void;
 }
 
 function Ting(props: Props) {
@@ -19,8 +18,8 @@ function Ting(props: Props) {
     <Style key={props.ting.name}>
       <Checkbox
         label={props.ting.name}
-        onClick={() => props.onCheck(props.ting, !props.isChecked)}
-        checked={props.isChecked}
+        onClick={() => props.onCheck(props.ting)}
+        checked={!!props.ting.checked}
         type="checkbox"
       />
     </Style>
