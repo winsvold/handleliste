@@ -17,7 +17,9 @@ const Style = styled.div`
   padding: 1rem;
 `;
 
-const StyledUl = styled.ul``;
+const StyledUl = styled.ul`
+  margin: 3rem 0 !important;
+`;
 
 export interface Item {
   name: string;
