@@ -1,9 +1,13 @@
 import styled from "styled-components/macro";
 import { InputHTMLAttributes } from "react";
 
-const Style = styled.label`
+const Style = styled.label<{
+  checked: boolean;
+}>`
   display: flex;
   align-items: center;
+
+  text-decoration: ${(props) => (props.checked ? "line-through" : "initial")};
 
   input {
     margin-right: 0.5em;
@@ -14,13 +18,14 @@ const Style = styled.label`
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
+  checked: boolean;
 }
 
 function Checkbox(props: Props) {
-  const { label, ...rest } = props;
+  const { label, checked, ...rest } = props;
   return (
-    <Style>
-      <input type="checkbox" {...rest} />
+    <Style checked={checked}>
+      <input type="checkbox" checked={checked} {...rest} />
       {label}
     </Style>
   );

@@ -13,6 +13,12 @@ export const GlobalStyle = createGlobalStyle`
     
     --tint: palegoldenrod;
     --bg-color: #181818;
+    --whiteish: #ddd;
+    --button-color: #D9CAB3;
+    --palette-1: #8C7A6B;
+    --palette-2: #90323D;
+    --palette-3: #5E0B15;
+    --palette-4: #BC8034;
   }
   
   body {
@@ -21,7 +27,6 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   *:focus {
-    outline: none;
-    box-shadow: 0 0 0 0.2rem orange;
+     box-shadow: 0 0 0 0.2rem var(--palette-4);
   }
 `;

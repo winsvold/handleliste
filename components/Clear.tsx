@@ -1,14 +1,6 @@
-import styled from "styled-components/macro";
 import Button from "./basicComponents/Button";
 import { sanityClient } from "../utils/sanity";
 import { handlelisteDocId, Item } from "../pages";
-import { gradientBorder } from "../styles/gradientBorders";
-
-const Style = styled.div`
-  button {
-    ${gradientBorder("hsl(0deg 100% 28%)", "hsl(0deg 100% 58%)")};
-  }
-`;
 
 interface Props {
   reload: () => void;
@@ -26,11 +18,7 @@ function Clear(props: Props) {
     props.reload();
   };
 
-  return (
-    <Style>
-      <Button onClick={onClick}>Fjern checked</Button>
-    </Style>
-  );
+  return <Button onClick={onClick}>Fjern avkrysset 🗑️</Button>;
 }
 
 export default Clear;

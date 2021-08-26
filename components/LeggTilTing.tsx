@@ -19,6 +19,7 @@ const StyledForm = styled.form`
 
 const StyledInput = styled(Input)`
   flex: 1;
+  color: var(--whiteish);
 `;
 
 function LeggTilTing(props: Props) {
@@ -38,10 +39,9 @@ function LeggTilTing(props: Props) {
   return (
     <StyledForm onSubmit={onSubmit}>
       <StyledInput
-        label="Legg til ting"
+        label="Nytt element"
         enterKeyHint="send"
         type="text"
-        placeholder="Sjokolade"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
