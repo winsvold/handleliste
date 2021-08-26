@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
     --tint: palegoldenrod;
     --bg-color: #181818;
     --whiteish: #ddd;
-    --button-color: #D9CAB3;
+    --button-color: #90323D;
     --palette-1: #8C7A6B;
     --palette-2: #90323D;
     --palette-3: #5E0B15;

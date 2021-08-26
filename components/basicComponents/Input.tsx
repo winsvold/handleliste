@@ -13,7 +13,7 @@ const Style = styled.div`
     width: 100%;
     min-width: 7rem;
     color: var(--whiteish);
-    border: 0.2rem solid var(--palette-4);
+    border: 0.2rem solid var(--whiteish);
     border-radius: 0.2rem;
     background-color: transparent;
     padding: 0.25rem 0.75rem;

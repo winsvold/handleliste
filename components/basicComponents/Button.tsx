@@ -5,7 +5,7 @@ export default styled.button`
   ${commonInteractiveElementStyling};
 
   border: 0.2rem solid var(--button-color);
-  color: #262525;
+  color: var(--whiteish);
   border-radius: 0.2rem;
   background-color: var(--button-color);
   padding: 0.25rem 0.75rem;
