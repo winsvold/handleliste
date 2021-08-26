@@ -1,16 +1,22 @@
 import { InputHTMLAttributes, useRef } from "react";
 import styled from "styled-components";
-import { commonInteractiveElementStyling } from "./common";
 import { guid } from "../../studio/utils/guid";
 
 const Style = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
+  label {
+    margin-bottom: 4px;
+  }
   input {
-    ${commonInteractiveElementStyling};
     width: 100%;
     min-width: 7rem;
+    color: var(--whiteish);
+    border: 0.2rem solid var(--palette-4);
+    border-radius: 0.2rem;
+    background-color: transparent;
+    padding: 0.25rem 0.75rem;
   }
 `;
 
