@@ -29,7 +29,7 @@
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^1.13.2",
     "concurrently": "^6.2.1",
-    "husky": "^4.3.8",
+    "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
     "lerna": "^4.0.0",
@@ -39,12 +39,6 @@
   },
   "prettier": {
     "printWidth": 120
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run typeCheck && npm run test"
-    }
   },
   "lint-staged": {
     "*.{js,jsx,json,md,ts,tsx}": "prettier --write"
