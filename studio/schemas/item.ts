@@ -14,6 +14,11 @@ export default {
       name: "checked",
       type: "boolean",
     },
+    {
+      name: "lagretTing",
+      type: "reference",
+      to: [{ type: "lagretTing" }],
+    },
   ],
   preview: {
     select: {
