@@ -19,7 +19,7 @@ export default {
     {
       name: "rating",
       type: "number",
-      description: "0 - Ræva | 1 - OK | 2 - Bra | 3 - Fantastisk",
+      description: "0 - Ok | 1 - Bra | 2 - Veldig bra | 3 - Fantastisk",
       validation: (Rule) => Rule.min(0).max(3),
     },
     {

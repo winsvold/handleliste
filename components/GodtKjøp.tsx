@@ -1,14 +1,22 @@
 import styled from "styled-components";
+import { handlelisteDocId } from "../pages";
 import { GodtKjøp as GodtKjøpI } from "../pages/godekjop";
-import { urlFor } from "../utils/sanity";
+import { guid } from "../studio/utils/guid";
+import { sanityClient, urlFor } from "../utils/sanity";
+import Button from "./basicComponents/Button";
 
 const Style = styled.div`
     background: #fff1;
     display: flex;
+    img {
+        object-fit: cover;
+        width: 7rem;
+    }
 `;
 
 const Content = styled.div`
     display: grid;
+    gap: .5rem;
     padding: 1rem;
     h2 {
         font-size: 1rem;
@@ -29,7 +37,6 @@ const Badges = styled.ul`
     align-items: flex-start;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: .5rem !important;
 `;
 
 const Badge = styled.li`
@@ -38,15 +45,26 @@ const Badge = styled.li`
     padding: .25rem .75rem;
 `;
 
+const StyledButton = styled(Button)`
+    justify-self: flex-end;
+`;
+
 const ratings = {
-    0: '🤢',
-    1: '🤗',
-    2: '😆',
-    3: '🥳'
+    0: '☆☆☆  😊',
+    1: '★☆☆  🤗',
+    2: '★★☆  😁',
+    3: '★★★  🥳'
 }
 
+const leggTilIHandleliste = async (godtKjøp: GodtKjøpI) => {
+    await sanityClient
+      .patch(handlelisteDocId)
+      .append("items", [{ name: godtKjøp.name, _key: guid(), godtKjop: {_ref: godtKjøp._id, _type: 'reference'} }])
+      .commit();
+  };
+
 function GodtKjøp(props: GodtKjøpI){
-    const imageUrl = props.image ? urlFor(props.image).height(150).url() : undefined;
+    const imageUrl = props.image ? urlFor(props.image).width(150).url() : undefined;
     
     return (
         <Style>
@@ -54,13 +72,14 @@ function GodtKjøp(props: GodtKjøpI){
             <Content>
                 <SpaceBetween>
                     <h2>{props.name}</h2>
-                    {props.rating && <span>{ratings[props.rating]}</span>}
+                    {props.rating !== undefined && <span>{ratings[props.rating]}</span>}
                 </SpaceBetween>
                 <p>{props.kommentar}</p>
                 <Badges>
                     {props.kategorier?.map(kategori => <Badge key={kategori._id}>{kategori.name}</Badge>)}
                     {props.butikker?.map(butikk => <Badge key={butikk._id}>{butikk.name}</Badge>)}
                 </Badges>
+                <StyledButton onClick={() => leggTilIHandleliste(props)}>Legg til i handleliste 🛒</StyledButton>
             </Content>
         </Style>
     )

@@ -28,6 +28,9 @@ const Style = styled.div`
 
 const StyledUl = styled.ul`
   margin: 3rem 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 export interface GodtKjøp {
