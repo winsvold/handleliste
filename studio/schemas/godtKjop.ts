@@ -1,8 +1,8 @@
 import { FaWineBottle } from "react-icons/fa";
 
 export default {
-  name: "lagretTing",
-  title: "Lagrede ting",
+  name: "godtKjop",
+  title: "Godt kjøp",
   type: "document",
   icon: FaWineBottle,
   fields: [
@@ -28,7 +28,7 @@ export default {
       rows: 4,
     },
     {
-      name: "kategori",
+      name: "kategorier",
       type: "array",
       of: [
         {
@@ -38,7 +38,7 @@ export default {
       ],
     },
     {
-      name: "butikk",
+      name: "butikker",
       type: "array",
       of: [
         {

@@ -1,11 +1,9 @@
 import useSWR from "swr";
 import { sanityClient } from "../utils/sanity";
-import AuthStatus from "../components/AuthStatus";
 import LeggTilTing from "../components/LeggTilTing";
 import Ting from "../components/Ting";
 import styled from "styled-components/macro";
 import Clear from "../components/Clear";
-import Head from "next/head";
 
 export const handlelisteDocId = "handleListe";
 export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
@@ -17,8 +15,7 @@ const Style = styled.div`
   align-items: center;
   padding: 1rem;
 
-  h2 {
-    font-family: "Delius", sans-serif;
+  h1 {
     font-size: 2rem;
   }
 `;
@@ -47,12 +44,8 @@ function Index() {
 
   return (
     <div>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet" />
-      </Head>
-      <AuthStatus />
       <Style>
-        <h2>Handleliste 🛒</h2>
+        <h1>Handleliste 🛒</h1>
         <AlignLeft>
           <LeggTilTing reload={response.revalidate} />
           <StyledUl>

@@ -2,12 +2,12 @@ import styled from "styled-components";
 import useSWR from "swr";
 import { getStudioUrl, sanityClient } from "../utils/sanity";
 
-const AuthStyle = styled.div`
+const AuthStyle = styled.a`
   display: flex;
-  background-color: #aaa5;
-  padding: 0.5rem 1rem;
-  width: 100%;
-  justify-content: flex-end;
+  align-items: center;
+  justify-self: flex-end;
+  color: white;
+  text-decoration: none;
   img {
     margin-left: 0.5rem;
     width: 1.5rem;
@@ -38,7 +38,7 @@ function AuthStatus() {
   if (erLoggetInn) {
     const initials = authStatus?.name?.split(" ").map((it) => it[0]);
     return (
-      <AuthStyle>
+      <AuthStyle href={getStudioUrl()}>
         {initials}
         <img src={authStatus?.profileImage} alt="" />
       </AuthStyle>
@@ -46,8 +46,8 @@ function AuthStatus() {
   }
 
   return (
-    <AuthStyle>
-      Du er ikke logget inn <a href={getStudioUrl()}>Logg inn</a>
+    <AuthStyle href={getStudioUrl()}>
+      Logg inn
     </AuthStyle>
   );
 }

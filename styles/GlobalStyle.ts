@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     color: #ddd;
     background-color: #111;
     font-family: 'Roboto', sans-serif;
+
+    h1 {
+      font-family: "Delius", sans-serif;
+    }
     
     --tint: palegoldenrod;
     --bg-color: #181818;

@@ -15,9 +15,9 @@ export default {
       type: "boolean",
     },
     {
-      name: "lagretTing",
+      name: "godtKjop",
       type: "reference",
-      to: [{ type: "lagretTing" }],
+      to: [{ type: "godtKjop" }],
     },
   ],
   preview: {
