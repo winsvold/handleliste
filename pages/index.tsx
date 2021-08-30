@@ -4,6 +4,7 @@ import LeggTilTing from "../components/LeggTilTing";
 import Ting from "../components/Ting";
 import styled from "styled-components/macro";
 import Clear from "../components/Clear";
+import Spinner from "../components/Spinner";
 
 export const handlelisteDocId = "handleListe";
 export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
@@ -41,6 +42,7 @@ interface HandleListeResponse {
 function Index() {
   const response = useSWR<HandleListeResponse>(handlelisteQuery, (q) => sanityClient.fetch(q));
   const items = response.data?.items || [];
+  const loading = !response.data && !response.error;
 
   return (
     <div>
@@ -48,12 +50,15 @@ function Index() {
         <h1>Handleliste 🛒</h1>
         <AlignLeft>
           <LeggTilTing reload={response.revalidate} />
-          <StyledUl>
-            {items.map((ting) => (
-              <Ting key={ting._key} ting={ting} reload={response.revalidate} />
-            ))}
-          </StyledUl>
-          <Clear reload={response.revalidate} ting={items} />
+          {loading && <Spinner />}
+          {items.length > 0 && <>
+            <StyledUl>
+              {items.map((ting) => (
+                <Ting key={ting._key} ting={ting} reload={response.revalidate} />
+              ))}
+            </StyledUl>
+            <Clear reload={response.revalidate} ting={items} />
+          </>}
         </AlignLeft>
       </Style>
     </div>
