@@ -4,6 +4,7 @@ import { GodtKjøp as GodtKjøpI } from "../pages/godekjop";
 import { guid } from "../studio/utils/guid";
 import { sanityClient, urlFor } from "../utils/sanity";
 import Button from "./basicComponents/Button";
+import { useState } from "react";
 
 const Style = styled.div`
     background: #fff1;
@@ -65,6 +66,15 @@ const leggTilIHandleliste = async (godtKjøp: GodtKjøpI) => {
 
 function GodtKjøp(props: GodtKjøpI){
     const imageUrl = props.image ? urlFor(props.image).width(150).url() : undefined;
+    const [lagtTil, setLagtTil] = useState(false);
+
+    const onLeggTil = () => {
+        if (lagtTil) {
+            return false;
+        }
+        leggTilIHandleliste(props);
+        setLagtTil(true);
+    }
     
     return (
         <Style>
@@ -79,7 +89,7 @@ function GodtKjøp(props: GodtKjøpI){
                     {props.kategorier?.map(kategori => <Badge key={kategori._id}>{kategori.name}</Badge>)}
                     {props.butikker?.map(butikk => <Badge key={butikk._id}>{butikk.name}</Badge>)}
                 </Badges>
-                <StyledButton onClick={() => leggTilIHandleliste(props)}>Legg til i handleliste 🛒</StyledButton>
+                <StyledButton onClick={onLeggTil}>{lagtTil ? "Lagt til i handleliste 👍" : "Legg til i handleliste 🛒"}</StyledButton>
             </Content>
         </Style>
     )
