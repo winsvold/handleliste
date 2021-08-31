@@ -86,7 +86,7 @@ function LeggTilTing(props: Props) {
       <StyledAutocomplete
         label="Nytt element"
         value={input}
-        items={autocompleteResponse.data?.options.sort((a,b) => b.timesUsed - a.timesUsed).map(it => it.name) || []}
+        options={autocompleteResponse.data?.options.sort((a, b) => b.timesUsed - a.timesUsed).map(it => it.name) || []}
         onChange={setInput}
       />
       <Button onClick={() => onSubmit()}>Legg til</Button>

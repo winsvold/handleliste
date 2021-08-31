@@ -17,31 +17,31 @@ const ItemStyle = styled.li<{ highLighted: boolean }>`
 
 interface Props {
   label: string,
-  items: string[],
+  options: string[],
   onChange: (value: string) => void;
   value: string;
   className?: string;
 }
 
 function Autocomplete(props: Props) {
-  const [inputItems, setInputItems] = useState(props.items);
+  const [inputOptions, setInputOptions] = useState(props.options);
 
   // Autocomplete items hentes inn asynkront, må derfor håndtere at de kan komme inn etter at komponenten har mounta
-  useEffect(() => setInputItems(props.items), [props.items.length])
+  useEffect(() => setInputOptions(props.options), [props.options.length])
 
   const combobox = useCombobox({
-    items: inputItems,
+    items: inputOptions,
     inputValue: props.value,
     onInputValueChange: ({ inputValue }) => {
       props.onChange(inputValue || '');
       if (inputValue) {
-        setInputItems(
-          props.items.filter(item =>
+        setInputOptions(
+          props.options.filter(item =>
             item.toLowerCase().startsWith(inputValue.toLowerCase())
           )
         );
       } else {
-        setInputItems(props.items)
+        setInputOptions(props.options)
       }
     },
     onSelectedItemChange: (change) => change.selectedItem && props.onChange(change.selectedItem)
@@ -54,7 +54,7 @@ function Autocomplete(props: Props) {
       </div>
       <DropdownStyle {...combobox.getMenuProps()}>
         {combobox.isOpen &&
-        inputItems.slice(0, 10).map((item, index) => (
+        inputOptions.slice(0, 10).map((item, index) => (
           <ItemStyle
             {...combobox.getItemProps({ item, index })}
             highLighted={combobox.highlightedIndex === index}
