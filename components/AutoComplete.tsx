@@ -21,6 +21,7 @@ interface Props {
   onChange: (value?: string) => void;
   onSelect: (value: string) => void;
   value: string;
+  className?: string;
 }
 
 function Autocomplete(props: Props) {
@@ -43,7 +44,7 @@ function Autocomplete(props: Props) {
   });
 
   return (
-    <div>
+    <div className={props.className}>
       <div {...combobox.getComboboxProps()}>
         <Input {...combobox.getInputProps()} label={props.label} />
       </div>

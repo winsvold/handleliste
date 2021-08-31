@@ -1,4 +1,3 @@
-import Input from "./basicComponents/Input";
 import Button from "./basicComponents/Button";
 import React, { FormEvent, useState } from "react";
 import { sanityClient } from "../utils/sanity";
@@ -19,9 +18,8 @@ const StyledForm = styled.form`
   gap: 1rem;
 `;
 
-const StyledInput = styled(Input)`
-  flex: 1;
-  color: var(--whiteish);
+const StyledAutocomplete = styled(AutoComplete)`
+    flex: 1;
 `;
 
 const autocompleteDocId = "autocomplete";
@@ -54,7 +52,7 @@ function LeggTilTing(props: Props) {
 
   return (
     <StyledForm onSubmit={onSubmit}>
-      <AutoComplete
+      <StyledAutocomplete
         label="Nytt element"
         value={input}
         items={autocompleteResponse.data?.options.map(it => it.name) || []}
