@@ -18,7 +18,7 @@ const ItemStyle = styled.li<{ highLighted: boolean }>`
 interface Props {
   label: string,
   items: string[],
-  onChange: (value?: string) => void;
+  onChange: (value: string) => void;
   onSelect: (value: string) => void;
   value: string;
   className?: string;
@@ -31,7 +31,7 @@ function Autocomplete(props: Props) {
     items: inputItems,
     inputValue: props.value,
     onInputValueChange: ({ inputValue }) => {
-      props.onChange(inputValue);
+      props.onChange(inputValue || '');
       if (inputValue) {
         setInputItems(
           props.items.filter(item =>

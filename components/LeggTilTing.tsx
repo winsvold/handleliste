@@ -1,10 +1,10 @@
 import Button from "./basicComponents/Button";
 import React, { FormEvent, useState } from "react";
 import { sanityClient } from "../utils/sanity";
-import { handlelisteDocId } from "../pages";
+import { handlelisteDocId, Item } from "../pages";
 import styled from "styled-components";
 import { guid } from "../studio/utils/guid";
-import useSWR from "swr";
+import useSWR  from "swr";
 import AutoComplete from "./AutoComplete";
 
 interface Props {
@@ -35,6 +35,39 @@ interface Autocomplete {
   options: AutoCompleteOption[]
 }
 
+async function updateAutocompleteDictionary(input: string, autocompleteResponse?: Autocomplete) {
+  const autoCompleteOption = autocompleteResponse?.options.find(it => it.name === input);
+
+  if (!autoCompleteOption) {
+    const newAutocompleteOption: AutoCompleteOption = {
+      name: input,
+      _key: guid(),
+      timesUsed: 1
+    };
+    await sanityClient
+      .patch(autocompleteDocId)
+      .append("options", [newAutocompleteOption])
+      .commit();
+  } else {
+    const updatedAutocompleteOption: AutoCompleteOption = {
+      ...autoCompleteOption,
+      timesUsed: autoCompleteOption.timesUsed + 1
+    };
+    await sanityClient
+      .patch(autocompleteDocId)
+      .insert("replace", `options[_key=="${autoCompleteOption._key}"]`, [updatedAutocompleteOption])
+      .commit();
+  }
+}
+
+async function addItemToHandleliste(input: string) {
+  const newItem: Item = { name: input, _key: guid(), checked: false };
+  await sanityClient
+    .patch(handlelisteDocId)
+    .append("items", [newItem])
+    .commit();
+}
+
 function LeggTilTing(props: Props) {
   const autocompleteResponse = useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
   const [input, setInput] = useState("");
@@ -43,10 +76,8 @@ function LeggTilTing(props: Props) {
     e?.preventDefault();
     if (input.length === 0) return;
     setInput("");
-    await sanityClient
-      .patch(handlelisteDocId)
-      .append("items", [{ name: input, _key: guid() }])
-      .commit();
+    await addItemToHandleliste(input);
+    await updateAutocompleteDictionary( input, autocompleteResponse.data);
     props.reload();
   };
 
