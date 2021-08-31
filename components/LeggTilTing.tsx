@@ -1,10 +1,12 @@
 import Input from "./basicComponents/Input";
 import Button from "./basicComponents/Button";
-import { FormEvent, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { sanityClient } from "../utils/sanity";
 import { handlelisteDocId } from "../pages";
 import styled from "styled-components";
 import { guid } from "../studio/utils/guid";
+import useSWR from "swr";
+import AutoComplete from "./AutoComplete";
 
 interface Props {
   reload: () => void;
@@ -22,7 +24,21 @@ const StyledInput = styled(Input)`
   color: var(--whiteish);
 `;
 
+const autocompleteDocId = "autocomplete";
+export const autocompleteQuery = `*[_id == "${autocompleteDocId}"][0]`;
+
+type AutoCompleteOption = {
+  name: string,
+  timesUsed: number,
+  _key: string
+};
+
+interface Autocomplete {
+  options: AutoCompleteOption[]
+}
+
 function LeggTilTing(props: Props) {
+  const autocompleteResponse = useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
   const [input, setInput] = useState("");
 
   const onSubmit = async (e?: FormEvent<HTMLFormElement>) => {
@@ -38,12 +54,12 @@ function LeggTilTing(props: Props) {
 
   return (
     <StyledForm onSubmit={onSubmit}>
-      <StyledInput
+      <AutoComplete
         label="Nytt element"
-        enterKeyHint="send"
-        type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        items={autocompleteResponse.data?.options.map(it => it.name) || []}
+        onChange={(v) => setInput(v)}
+        onSelect={setInput}
       />
       <Button onClick={() => onSubmit()}>Legg til</Button>
     </StyledForm>

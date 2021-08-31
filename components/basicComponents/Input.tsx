@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useRef } from "react";
+import React, { ForwardedRef, InputHTMLAttributes, useRef } from "react";
 import styled from "styled-components";
 import { guid } from "../../studio/utils/guid";
 
@@ -24,15 +24,15 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-const Input = (props: Props) => {
+const Input = (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
   const id = useRef(guid()).current;
   const { label, className, ...rest } = props;
   return (
     <Style className={className}>
       <label htmlFor={id}>{label}</label>
-      <input id={id} type="text" {...rest} />
+      <input enterKeyHint="send" id={id} ref={ref} type="text" {...rest} />
     </Style>
   );
 };
 
-export default Input;
+export default React.forwardRef(Input);

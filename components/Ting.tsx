@@ -28,7 +28,7 @@ function Ting(props: Props) {
     <Style key={props.ting.name}>
       <Checkbox
         label={props.ting.name}
-        onClick={() => onCheck(props.ting)}
+        onChange={() => onCheck(props.ting)}
         checked={!!props.ting.checked}
         type="checkbox"
       />

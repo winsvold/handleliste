@@ -5,8 +5,9 @@ import item from "./item";
 import godtKjop from "./godtKjop";
 import kategori from "./kategori";
 import butikk from "./butikk";
+import autocomplete from "./autocomplete";
 
 export default createSchema({
   name: "default",
-  types: schemaTypes.concat([handleListe, item, godtKjop, kategori, butikk]),
+  types: schemaTypes.concat([handleListe, item, godtKjop, kategori, butikk, autocomplete]),
 });
