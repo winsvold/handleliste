@@ -4,8 +4,13 @@ import Checkbox from "./basicComponents/Checkbox";
 import { sanityClient } from "../utils/sanity";
 
 const Style = styled.li`
+  width: min-content;
   & + & {
     margin-top: 0.35em;
+  }
+  transition: .2s;
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 
