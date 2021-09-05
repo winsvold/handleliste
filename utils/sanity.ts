@@ -1,5 +1,5 @@
 import { createImageUrlBuilder, createPreviewSubscriptionHook, createClient, ClientConfig } from "next-sanity";
-import { isProduction } from "./environment";
+import { isClient, isProduction } from "./environment";
 
 const config: ClientConfig = {
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -25,7 +25,7 @@ export const sanityClient = createClient(config);
 import { isDevelopment } from "./environment";
 
 export function getStudioUrl() {
-  if (isDevelopment()) {
+  if (isDevelopment() && isClient()) {
     return location.origin + "/cms";
   }
 

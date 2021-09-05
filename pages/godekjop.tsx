@@ -1,10 +1,10 @@
 import useSWR from "swr";
-import { sanityClient } from "../utils/sanity";
+import { getStudioUrl, sanityClient } from "../utils/sanity";
 import styled from "styled-components/macro";
 import React from "react";
 import GodtKjøp from "../components/GodtKjøp";
 
-export const godekjøpQuery = `*[_type == "godtKjop"] {
+export const godekjøpQuery = `*[_type == "godtKjop" && !(_id in path("drafts.**"))] {
   "butikker": butikker[]->{name, _id},
   "kategorier": kategorier[]->{name, _id},
   kommentar,
@@ -57,6 +57,7 @@ function Index() {
     <div>
       <Style>
         <h1>Gode kjøp 🛒</h1>
+        <a href={getStudioUrl() + "/intent/create/template=godtKjop;type=godtKjop/"}>Legg til</a>
         <StyledUl>
           {godeKjøp.map((godtKjøp) => <li key={godtKjøp._id}><GodtKjøp {...godtKjøp} /></li>)}
         </StyledUl>

@@ -10,6 +10,7 @@ const smallScreen = 'max-width: 600px';
 
 const Style = styled.div`
   background: #fff1;
+  font-size: .9rem;
   padding: 1rem;
   display: grid;
   gap: .5rem;
@@ -30,7 +31,6 @@ const Style = styled.div`
 
 const Kommentar = styled.p`
   font-weight: 300;
-  font-size: .9rem;
   grid-area: kommentar;
 `;
 
@@ -69,6 +69,7 @@ const Badge = styled.li`
   background: #fff2;
   border-radius: .3rem;
   padding: .25rem .75rem;
+  font-size: .9em;
 `;
 
 const StyledButton = styled(Button)`
