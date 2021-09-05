@@ -33,7 +33,7 @@ const StyledUl = styled.ul`
   gap: 1rem;
 `;
 
-export interface GodtKjøp {
+export interface GodtKjøpI {
   _id: string,
   butikker?: {
     _id: string,
@@ -50,7 +50,7 @@ export interface GodtKjøp {
 }
 
 function Index() {
-  const response = useSWR<GodtKjøp[]>(godekjøpQuery, (q) => sanityClient.fetch(q));
+  const response = useSWR<GodtKjøpI[]>(godekjøpQuery, (q) => sanityClient.fetch(q));
   const godeKjøp = response.data || [];
 
   return (
