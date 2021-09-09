@@ -4,7 +4,7 @@ import Checkbox from "./basicComponents/Checkbox";
 import { sanityClient } from "../utils/sanity";
 
 const Style = styled.li`
-  width: min-content;
+  width: fit-content;
   & + & {
     margin-top: 0.35em;
   }
@@ -12,6 +12,12 @@ const Style = styled.li`
   &:hover {
     transform: scale(1.05);
   }
+
+  input {
+    min-width: 1.2rem;
+  }
+
+
 `;
 
 interface Props {
