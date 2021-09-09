@@ -8,7 +8,8 @@
     "start": "next start",
     "test": "jest",
     "typeCheck": "tsc",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "lint": "next lint"
   },
   "dependencies": {
     "downshift": "^6.1.7",
@@ -30,6 +31,8 @@
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-styled-components": "^1.13.2",
     "concurrently": "^6.2.1",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
     "husky": "^6.0.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.6",
@@ -42,6 +45,7 @@
     "printWidth": 120
   },
   "lint-staged": {
-    "*.{js,jsx,json,md,ts,tsx}": "prettier --write"
+    "*.{js,jsx,json,md,ts,tsx}": "prettier --write",
+    "*.{js,jsx,ts,tsx}": "eslint"
   }
 }

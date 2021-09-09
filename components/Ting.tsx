@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import { handlelisteDocId, Item } from "../pages";
 import Checkbox from "./basicComponents/Checkbox";
 import { sanityClient } from "../utils/sanity";
+import { ChangeEvent, useLayoutEffect, useState } from "react";
 
 const Style = styled.li`
   width: fit-content;
@@ -26,21 +27,45 @@ interface Props {
 }
 
 function Ting(props: Props) {
-  const onCheck = async (ting: Item) => {
-    const oppdatertTing: Item = { ...ting, checked: !ting.checked };
-    await sanityClient
+  const [checked, setChecked] = useState(props.ting.checked);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+
+  useLayoutEffect(() => {
+    if(!isUpdating) {
+      setChecked(!!props.ting.checked)
+      setIsUpdating(false);
+    }
+  
+  }, [isUpdating, props.ting.checked])
+
+  const onCheck = async (ting: Item, e: ChangeEvent<HTMLInputElement>) => {
+    console.log('e', e.target.checked)
+    const oppdatertTing: Item = { ...ting, checked: e.target.checked };
+    setIsUpdating(true);
+    setChecked(e.target.checked);
+    try {
+      await sanityClient
       .patch(handlelisteDocId)
       .insert("replace", `[items[_key=="${ting._key}"]]`, [oppdatertTing])
       .commit();
-    props.reload();
+    } catch (e) {
+      alert("noe gikk galt");
+      setIsUpdating(false);
+
+    }
+    finally {
+      props.reload();  
+    }
+
   };
 
   return (
     <Style key={props.ting.name}>
       <Checkbox
         label={props.ting.name}
-        onChange={() => onCheck(props.ting)}
-        checked={!!props.ting.checked}
+        onChange={(e) => onCheck(props.ting, e)}
+        checked={checked}
         type="checkbox"
       />
     </Style>

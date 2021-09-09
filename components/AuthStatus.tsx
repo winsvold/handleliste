@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import useSWR from "swr";
 import { getStudioUrl, sanityClient } from "../utils/sanity";
+import Image from 'next/image'
 
 const AuthStyle = styled.a`
   display: flex;
@@ -40,7 +41,9 @@ function AuthStatus() {
     return (
       <AuthStyle href={getStudioUrl()}>
         {initials}
-        <img src={authStatus?.profileImage} alt="" />
+        {authStatus?.profileImage &&
+        <Image src={authStatus?.profileImage} alt="" />
+        }
       </AuthStyle>
     );
   }
