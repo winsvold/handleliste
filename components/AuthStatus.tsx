@@ -9,12 +9,15 @@ const AuthStyle = styled.a`
   justify-self: flex-end;
   color: white;
   text-decoration: none;
-  img {
-    margin-left: 0.5rem;
-    width: 1.5rem;
-    border-radius: 50%;
-    border: 0.1rem white solid;
-  }
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  margin-left: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 0.1rem white solid;
 `;
 
 interface AuthStatus {
@@ -42,7 +45,9 @@ function AuthStatus() {
       <AuthStyle href={getStudioUrl()}>
         {initials}
         {authStatus?.profileImage &&
-        <Image src={authStatus?.profileImage} alt="" />
+        <ImageWrapper>
+          <Image src={authStatus?.profileImage} alt="" layout="fill" />
+        </ImageWrapper>
         }
       </AuthStyle>
     );

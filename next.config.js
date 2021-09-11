@@ -9,4 +9,9 @@ module.exports = {
     locales: ["no"],
     defaultLocale: "no",
   },
+  images: {
+    domains: [
+      "avatars.githubusercontent.com"
+    ]
+  }
 };
