@@ -10,17 +10,17 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/base": "^2.15.1",
+    "@sanity/base": "^2.29.8",
     "@sanity/components": "^2.14.0",
-    "@sanity/core": "^2.15.0",
-    "@sanity/default-layout": "^2.15.1",
-    "@sanity/default-login": "^2.15.0",
-    "@sanity/desk-tool": "^2.15.2",
-    "@sanity/vision": "^2.15.0",
+    "@sanity/core": "^2.29.5",
+    "@sanity/default-layout": "^2.29.8",
+    "@sanity/default-login": "^2.29.8",
+    "@sanity/desk-tool": "^2.29.8",
+    "@sanity/vision": "^2.29.8",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^3.11.0"
+    "react-icons": "^4.3.1"
   },
   "devDependencies": {}
 }

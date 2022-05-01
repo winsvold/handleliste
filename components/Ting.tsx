@@ -72,7 +72,7 @@ function Ting(props: Props) {
     <Style key={props.ting.name}>
       <Checkbox label={props.ting.name} onChange={(e) => onCheck(e)} checked={checked} type="checkbox" />
       <Meta>
-        {ting.addedBy} {ting.checkedBy && ` - handlet av ${ting.checkedBy}`}
+        {ting.addedBy} {ting.checked && ` - handlet av ${ting.checkedBy}`}
       </Meta>
     </Style>
   );
