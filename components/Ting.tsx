@@ -5,20 +5,31 @@ import { sanityClient } from "../utils/sanity";
 import { ChangeEvent, useLayoutEffect, useState } from "react";
 import { Item } from "../schema.types";
 import { SanityKeyed } from "sanity-codegen";
+import { useAuth } from "./AuthStatus";
 
 const Style = styled.li`
   width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+  align-items: center;
   & + & {
     margin-top: 0.35em;
   }
-  transition: .2s;
-  &:hover {
-    transform: scale(1.05);
+  > *:first-child {
+    transition: 0.2s;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
-
   input {
     min-width: 1.2rem;
   }
+`;
+
+const Meta = styled.p`
+  font-size: 0.5rem;
+  opacity: 0.7;
 `;
 
 interface Props {
@@ -29,45 +40,40 @@ interface Props {
 function Ting(props: Props) {
   const [checked, setChecked] = useState(props.ting.checked);
   const [isUpdating, setIsUpdating] = useState(false);
-
+  const ting = props.ting;
+  const user = useAuth().data?.name;
 
   useLayoutEffect(() => {
-    if(!isUpdating) {
-      setChecked(!!props.ting.checked)
+    if (!isUpdating) {
+      setChecked(!!props.ting.checked);
       setIsUpdating(false);
     }
-  
-  }, [isUpdating, props.ting.checked])
+  }, [isUpdating, props.ting.checked]);
 
-  const onCheck = async (ting: SanityKeyed<Item>, e: ChangeEvent<HTMLInputElement>) => {
-    console.log('e', e.target.checked)
-    const oppdatertTing: Item = { ...ting, checked: e.target.checked };
+  const onCheck = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log("e", e.target.checked);
+    const oppdatertTing: Item = { ...ting, checked: e.target.checked, checkedBy: user };
     setIsUpdating(true);
     setChecked(e.target.checked);
     try {
       await sanityClient
-      .patch(handlelisteDocId)
-      .insert("replace", `[items[_key=="${ting._key}"]]`, [oppdatertTing])
-      .commit();
+        .patch(handlelisteDocId)
+        .insert("replace", `[items[_key=="${ting._key}"]]`, [oppdatertTing])
+        .commit();
     } catch (e) {
       alert("noe gikk galt");
       setIsUpdating(false);
-
+    } finally {
+      props.reload();
     }
-    finally {
-      props.reload();  
-    }
-
   };
 
   return (
     <Style key={props.ting.name}>
-      <Checkbox
-        label={props.ting.name}
-        onChange={(e) => onCheck(props.ting, e)}
-        checked={checked}
-        type="checkbox"
-      />
+      <Checkbox label={props.ting.name} onChange={(e) => onCheck(e)} checked={checked} type="checkbox" />
+      <Meta>
+        {ting.addedBy} {ting.checkedBy && ` - handlet av ${ting.checkedBy}`}
+      </Meta>
     </Style>
   );
 }

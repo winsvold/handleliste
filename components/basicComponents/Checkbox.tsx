@@ -6,6 +6,7 @@ const Style = styled.label<{
 }>`
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   text-decoration: ${(props) => (props.checked ? "line-through" : "initial")};
 

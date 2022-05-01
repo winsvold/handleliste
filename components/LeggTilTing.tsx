@@ -8,6 +8,7 @@ import useSWR  from "swr";
 import AutoComplete from "./AutoComplete";
 import { Item } from "../schema.types";
 import { SanityKeyed } from "sanity-codegen";
+import { useAuth } from "./AuthStatus";
 
 interface Props {
   reload: () => void;
@@ -62,8 +63,8 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
   }
 }
 
-async function addItemToHandleliste(input: string) {
-  const newItem: SanityKeyed<Partial<Item>> = { name: input, _key: guid(), checked: false };
+async function addItemToHandleliste(input: string, user: string) {
+  const newItem: SanityKeyed<Partial<Item>> = { addedBy: user, name: input, _key: guid(), checked: false };
   await sanityClient
     .patch(handlelisteDocId)
     .append("items", [newItem])
@@ -73,12 +74,13 @@ async function addItemToHandleliste(input: string) {
 function LeggTilTing(props: Props) {
   const autocompleteResponse = useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
   const [input, setInput] = useState("");
+  const name = useAuth().data?.name ?? 'N/A';
 
   const onSubmit = async (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     if (input.length === 0) return;
     setInput("");
-    await addItemToHandleliste(input);
+    await addItemToHandleliste(input, name);
     await updateAutocompleteDictionary( input, autocompleteResponse.data);
     props.reload();
   };

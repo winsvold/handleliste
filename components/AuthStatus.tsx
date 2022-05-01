@@ -30,8 +30,12 @@ const fetcher = (url: string): Promise<AuthStatus> => fetch(url, { credentials: 
 // @ts-ignore
 const { url } = sanityClient.config();
 
+export function useAuth() {
+  return useSWR<AuthStatus>(`${url}/users/me`, fetcher);
+}
+
 function AuthStatus() {
-  const { data: authStatus, error } = useSWR<AuthStatus>(`${url}/users/me`, fetcher);
+  const { data: authStatus, error } = useAuth();
 
   const erLoggetInn = authStatus?.name !== undefined;
 
@@ -44,20 +48,16 @@ function AuthStatus() {
     return (
       <AuthStyle href={getStudioUrl()}>
         {initials}
-        {authStatus?.profileImage &&
-        <ImageWrapper>
-          <Image src={authStatus?.profileImage} alt="" layout="fill" />
-        </ImageWrapper>
-        }
+        {authStatus?.profileImage && (
+          <ImageWrapper>
+            <Image src={authStatus?.profileImage} alt="" layout="fill" />
+          </ImageWrapper>
+        )}
       </AuthStyle>
     );
   }
 
-  return (
-    <AuthStyle href={getStudioUrl()}>
-      Logg inn
-    </AuthStyle>
-  );
+  return <AuthStyle href={getStudioUrl()}>Logg inn</AuthStyle>;
 }
 
 export default AuthStatus;
