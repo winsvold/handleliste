@@ -1,11 +1,13 @@
 import Button from "./basicComponents/Button";
 import React, { FormEvent, useState } from "react";
 import { sanityClient } from "../utils/sanity";
-import { handlelisteDocId, Item } from "../pages";
+import { handlelisteDocId } from "../pages";
 import styled from "styled-components";
 import { guid } from "../studio/utils/guid";
 import useSWR  from "swr";
 import AutoComplete from "./AutoComplete";
+import { Item } from "../schema.types";
+import { SanityKeyed } from "sanity-codegen";
 
 interface Props {
   reload: () => void;
@@ -61,7 +63,7 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
 }
 
 async function addItemToHandleliste(input: string) {
-  const newItem: Item = { name: input, _key: guid(), checked: false };
+  const newItem: SanityKeyed<Partial<Item>> = { name: input, _key: guid(), checked: false };
   await sanityClient
     .patch(handlelisteDocId)
     .append("items", [newItem])

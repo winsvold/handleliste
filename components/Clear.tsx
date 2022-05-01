@@ -1,10 +1,12 @@
 import Button from "./basicComponents/Button";
 import { sanityClient } from "../utils/sanity";
-import { handlelisteDocId, Item } from "../pages";
+import { handlelisteDocId } from "../pages";
+import { Item } from "../schema.types";
+import { SanityKeyed } from "sanity-codegen";
 
 interface Props {
   reload: () => void;
-  ting: Item[];
+  ting: SanityKeyed<Item>[];
 }
 
 function Clear(props: Props) {

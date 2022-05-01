@@ -17,14 +17,14 @@ const Style = styled.label<{
 `;
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  checked: boolean;
+  label?: string;
+  checked?: boolean;
 }
 
 function Checkbox(props: Props) {
   const { label, checked, ...rest } = props;
   return (
-    <Style checked={checked}>
+    <Style checked={!!checked}>
       <input type="checkbox" checked={checked} {...rest} />
       {label}
     </Style>

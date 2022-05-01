@@ -5,6 +5,8 @@ import Ting from "../components/Ting";
 import styled from "styled-components/macro";
 import Clear from "../components/Clear";
 import Spinner from "../components/Spinner";
+import { Item } from "../schema.types";
+import { SanityKeyed } from "sanity-codegen";
 
 export const handlelisteDocId = "handleListe";
 export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
@@ -29,14 +31,8 @@ const AlignLeft = styled.div`
   justify-content: flex-start;
 `;
 
-export interface Item {
-  name: string;
-  checked: boolean;
-  _key: string;
-}
-
 interface HandleListeResponse {
-  items: Item[];
+  items: SanityKeyed<Item>[];
 }
 
 function Index() {

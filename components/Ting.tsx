@@ -1,8 +1,10 @@
 import styled from "styled-components/macro";
-import { handlelisteDocId, Item } from "../pages";
+import { handlelisteDocId } from "../pages";
 import Checkbox from "./basicComponents/Checkbox";
 import { sanityClient } from "../utils/sanity";
 import { ChangeEvent, useLayoutEffect, useState } from "react";
+import { Item } from "../schema.types";
+import { SanityKeyed } from "sanity-codegen";
 
 const Style = styled.li`
   width: fit-content;
@@ -17,12 +19,10 @@ const Style = styled.li`
   input {
     min-width: 1.2rem;
   }
-
-
 `;
 
 interface Props {
-  ting: Item;
+  ting: SanityKeyed<Item>;
   reload: () => void;
 }
 
@@ -39,7 +39,7 @@ function Ting(props: Props) {
   
   }, [isUpdating, props.ting.checked])
 
-  const onCheck = async (ting: Item, e: ChangeEvent<HTMLInputElement>) => {
+  const onCheck = async (ting: SanityKeyed<Item>, e: ChangeEvent<HTMLInputElement>) => {
     console.log('e', e.target.checked)
     const oppdatertTing: Item = { ...ting, checked: e.target.checked };
     setIsUpdating(true);
