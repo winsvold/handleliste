@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useSWR from "swr";
 import { getStudioUrl, sanityClient } from "../utils/sanity";
-import Image from 'next/image'
+import Image from "next/image";
 
 const AuthStyle = styled.a`
   display: flex;
@@ -9,10 +9,11 @@ const AuthStyle = styled.a`
   justify-self: flex-end;
   color: white;
   text-decoration: none;
-`;
+  `;
 
 const ImageWrapper = styled.div`
   position: relative;
+  overflow: hidden;
   margin-left: 0.5rem;
   width: 1.5rem;
   height: 1.5rem;
@@ -25,13 +26,11 @@ interface AuthStatus {
   profileImage?: string;
 }
 
-const fetcher = (url: string): Promise<AuthStatus> => fetch(url, { credentials: "include" }).then((it) => it.json());
-
 // @ts-ignore
 const { url } = sanityClient.config();
 
 export function useAuth() {
-  return useSWR<AuthStatus>(`${url}/users/me`, fetcher);
+  return useSWR(`currentSanityUser`, () => sanityClient.users.getById("me"));
 }
 
 function AuthStatus() {
