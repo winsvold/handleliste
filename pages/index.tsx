@@ -45,15 +45,15 @@ function Index() {
       <Style>
         <h1>Handleliste 🛒</h1>
         <AlignLeft>
-          <LeggTilTing reload={response.revalidate} />
+          <LeggTilTing reload={response.mutate} />
           {loading && <Spinner />}
           {items.length > 0 && <>
             <StyledUl>
               {items.map((ting) => (
-                <Ting key={ting._key} ting={ting} reload={response.revalidate} />
+                <Ting key={ting._key} ting={ting} reload={response.mutate} />
               ))}
             </StyledUl>
-            <Clear reload={response.revalidate} ting={items} />
+            <Clear reload={response.mutate} ting={items} />
           </>}
         </AlignLeft>
       </Style>
