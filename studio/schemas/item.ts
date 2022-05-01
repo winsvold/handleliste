@@ -15,6 +15,14 @@ export default {
       type: "boolean",
     },
     {
+      name: "checkedBy",
+      type: "string",
+    },
+    {
+      name: "addedBy",
+      type: "string",
+    },
+    {
       name: "godtKjop",
       type: "reference",
       to: [{ type: "godtKjop" }],

@@ -9,6 +9,7 @@
     "test": "jest",
     "typeCheck": "tsc",
     "postinstall": "lerna bootstrap",
+    "generateSchemaTypes": "npx sanity-codegen",
     "lint": "next lint"
   },
   "dependencies": {
@@ -38,7 +39,8 @@
     "jest": "^27.0.6",
     "lerna": "^4.0.0",
     "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2",
+    "prettier": "^2.6.2",
+    "sanity-codegen": "^0.9.8",
     "typescript": "^4.3.5"
   },
   "prettier": {
