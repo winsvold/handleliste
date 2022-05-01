@@ -29,7 +29,7 @@ const Style = styled.li`
 
 const Meta = styled.p`
   font-size: 0.5rem;
-  opacity: 0.7;
+  color: #aaa;
 `;
 
 interface Props {
@@ -72,7 +72,7 @@ function Ting(props: Props) {
     <Style key={props.ting.name}>
       <Checkbox label={props.ting.name} onChange={(e) => onCheck(e)} checked={checked} type="checkbox" />
       <Meta>
-        {ting.addedBy?.split(" ")[0]} {ting.checked && ` - handlet av ${ting.checkedBy?.split(" ")[0]}`}
+        🖊 {ting.addedBy?.split(" ")[0]} {ting.checked && ` - 🛒 ${ting.checkedBy?.split(" ")[0]}`}
       </Meta>
     </Style>
   );
