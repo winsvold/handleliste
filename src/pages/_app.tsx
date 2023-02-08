@@ -19,7 +19,7 @@ const MyApp = ({ Component, pageProps }: any) => {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet" />
       </Head>
-      <Box background="gray.900" color="white" minH="100vh">
+      <Box background="var(--bg-color)" color="#ddd" minH="100vh">
         {!asPath.startsWith("/studio") && (
           <>
             <ToppLinje />

@@ -3,8 +3,6 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   html {
     font-size: 112.5%;
-    font-weight: 400;
-    color: #ddd;
     background-color: #111;
     font-family: 'Roboto', sans-serif;
 
@@ -22,20 +20,8 @@ export const GlobalStyle = createGlobalStyle`
     --palette-4: #BC8034;
   }
   
-  body {
-    background-color: var(--bg-color);
-    min-height: 100vh;
-  }
-  
   *:focus {
     outline: none;
-     box-shadow: 0 0 0 0.2rem var(--palette-4);
-  }
-  
-  a {
-    color: inherit;
-    &:hover {
-      text-decoration: none;
-    }
+    box-shadow: 0 0 0 0.2rem var(--palette-4);
   }
 `;
