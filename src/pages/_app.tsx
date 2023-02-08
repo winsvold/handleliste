@@ -1,16 +1,14 @@
-import React from "react";
-import { ResetCSS } from "../styles/reset.css";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 import Head from "next/head";
-import { GlobalStyle } from "../styles/GlobalStyle";
-import ToppLinje from "../components/ToppLinje";
 import { useRouter } from "next/router";
+import ToppLinje from "../components/ToppLinje";
+import { GlobalStyle } from "../styles/GlobalStyle";
 
 const MyApp = ({ Component, pageProps }: any) => {
   const { asPath } = useRouter();
-  console.log(asPath);
 
   return (
-    <>
+    <ChakraProvider>
       <Head>
         <title>Handleliste</title>
         <link
@@ -21,15 +19,18 @@ const MyApp = ({ Component, pageProps }: any) => {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet" />
       </Head>
-      <ResetCSS />
-      {!asPath.startsWith("/studio") && (
-        <>
-          <ToppLinje />
-          <GlobalStyle />
-        </>
-      )}
-      <Component {...pageProps} />
-    </>
+      <Box background="gray.900" color="white" minH="100vh">
+        {!asPath.startsWith("/studio") && (
+          <>
+            <ToppLinje />
+            <GlobalStyle />
+          </>
+        )}
+        <main>
+          <Component {...pageProps} />
+        </main>
+      </Box>
+    </ChakraProvider>
   );
 };
 

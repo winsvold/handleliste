@@ -3,10 +3,12 @@ import { sanityClient } from "../utils/sanity";
 import LeggTilTing from "../components/LeggTilTing";
 import Ting from "../components/Ting";
 import styled from "styled-components";
-import Clear from "../components/Clear";
+import FjernAvkrysset from "../components/FjernAvkrysset";
 import Spinner from "../components/Spinner";
 import { Item } from "../sanity/schema.types";
 import { SanityKeyed } from "sanity-codegen";
+import { useState } from "react";
+import { Flex, Link } from "@chakra-ui/react";
 
 export const handlelisteDocId = "handleListe";
 export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
@@ -35,17 +37,33 @@ interface HandleListeResponse {
   items: SanityKeyed<Item>[];
 }
 
+const lists = ["Dagligvarer", "Andre ting", "Kvitfjell"] as const;
+export type ListName = (typeof lists)[number];
+
 function Index() {
   const response = useSWR<HandleListeResponse>(handlelisteQuery, (q) => sanityClient.fetch(q));
-  const items = response.data?.items || [];
+  const [currentList, setCurrentList] = useState<ListName>("Dagligvarer");
+  const items = response.data?.items.filter((item) => item.listName === currentList) || [];
   const loading = !response.data && !response.error;
 
   return (
     <div>
       <Style>
         <h1>Handleliste 🛒</h1>
+        <Flex gap="1rem">
+          {lists.map((list) => (
+            <Link
+              textDecoration={list === currentList ? "underline" : "none"}
+              as="button"
+              key={list}
+              onClick={() => setCurrentList(list)}
+            >
+              {list}
+            </Link>
+          ))}
+        </Flex>
         <AlignLeft>
-          <LeggTilTing reload={response.mutate} />
+          <LeggTilTing reload={response.mutate} listName={currentList} />
           {loading && <Spinner />}
           {items.length > 0 && (
             <>
@@ -54,7 +72,7 @@ function Index() {
                   <Ting key={ting._key} ting={ting} reload={response.mutate} />
                 ))}
               </StyledUl>
-              <Clear reload={response.mutate} ting={items} />
+              <FjernAvkrysset reload={response.mutate} ting={items} />
             </>
           )}
         </AlignLeft>

@@ -9,7 +9,7 @@ interface Props {
   ting: SanityKeyed<Item>[];
 }
 
-function Clear(props: Props) {
+function FjernAvkrysset(props: Props) {
   const onClick = async () => {
     if (!confirm("Er du sikker?")) return;
     const checkedItems = props.ting.filter((ting) => ting.checked);
@@ -23,4 +23,4 @@ function Clear(props: Props) {
   return <Button onClick={onClick}>Fjern avkrysset 🗑️</Button>;
 }
 
-export default Clear;
+export default FjernAvkrysset;

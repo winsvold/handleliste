@@ -13,6 +13,10 @@ export default defineType({
       type: "string",
     },
     {
+      name: "listName",
+      type: "string",
+    },
+    {
       name: "checked",
       type: "boolean",
     },

@@ -3,10 +3,11 @@ import { definePreview } from "next-sanity/preview";
 import { isProduction } from "./environment";
 import createImageUrlBuilder from "@sanity/image-url";
 import { SanityProjectDetails } from "@sanity/image-url/lib/types/types";
+import sanityConfig from "../sanity/sanity.config";
 
 const config: ClientConfig = {
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "",
+  dataset: sanityConfig.dataset,
+  projectId: sanityConfig.projectId,
   useCdn: isProduction(),
   apiVersion: "2021-08-23",
   withCredentials: true,

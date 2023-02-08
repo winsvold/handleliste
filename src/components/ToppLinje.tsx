@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AuthStatus from "./AuthStatus";
 import Link from "next/link";
 
-const Style = styled.div`
+const Style = styled.header`
   display: flex;
   background-color: #aaa5;
   padding: 0.5rem 1rem;

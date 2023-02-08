@@ -183,6 +183,13 @@ export type Item = {
   name?: string;
 
   /**
+   * listName — `string`
+   *
+   *
+   */
+  listName?: string;
+
+  /**
    * checked — `boolean`
    *
    *

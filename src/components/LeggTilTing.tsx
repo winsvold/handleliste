@@ -1,7 +1,7 @@
 import Button from "./basicComponents/Button";
 import React, { FormEvent, useState } from "react";
 import { sanityClient } from "../utils/sanity";
-import { handlelisteDocId } from "../pages";
+import { handlelisteDocId, ListName } from "../pages";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 import useSWR from "swr";
@@ -12,6 +12,7 @@ import { Item } from "../sanity/schema.types";
 
 interface Props {
   reload: () => void;
+  listName: ListName;
 }
 
 const StyledForm = styled.form`
@@ -60,8 +61,14 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
   }
 }
 
-async function addItemToHandleliste(input: string, user: string) {
-  const newItem: SanityKeyed<Partial<Item>> = { addedBy: user, name: input, _key: nanoid(), checked: false };
+async function addItemToHandleliste(input: string, user: string, listName: ListName) {
+  const newItem: SanityKeyed<Partial<Item>> = {
+    addedBy: user,
+    name: input,
+    _key: nanoid(),
+    checked: false,
+    listName: listName,
+  };
   await sanityClient.patch(handlelisteDocId).append("items", [newItem]).commit();
 }
 
@@ -74,7 +81,7 @@ function LeggTilTing(props: Props) {
     e?.preventDefault();
     if (input.length === 0) return;
     setInput("");
-    await addItemToHandleliste(input, name);
+    await addItemToHandleliste(input, name, props.listName);
     await updateAutocompleteDictionary(input, autocompleteResponse.data);
     props.reload();
   };
