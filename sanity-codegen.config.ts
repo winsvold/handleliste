@@ -1,8 +1,8 @@
-import { SanityCodegenConfig } from 'sanity-codegen';
+import { SanityCodegenConfig } from "sanity-codegen";
 
 const config: SanityCodegenConfig = {
-  schemaPath: './studio/schemas/schema.ts',
-  outputPath: './schema.types.ts',
+  schemaPath: "./src/sanity/schemas/index.ts",
+  outputPath: "./src/sanity/schema.types.ts",
 };
 
 export default config;

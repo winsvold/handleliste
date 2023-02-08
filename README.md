@@ -13,13 +13,6 @@ SANITY_STUDIO_API_DATASET="production"
 SANITY_STUDIO_API_PROJECT_ID="<projectId>"
 ```
 
-Og env-fil i studio-mappe:
-
-```
-SANITY_STUDIO_API_DATASET="production"
-SANITY_STUDIO_API_PROJECT_ID="<projectId>"
-```
-
 Så kjører du
 
 ```

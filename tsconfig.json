@@ -1,21 +1,24 @@
 {
+  "extends": "./tsconfig.settings",
+  "include": [
+    ".next/types/**/*.ts",
+    "./next-env.d.ts",
+    "./src",
+    "./sanity-env.d.ts",
+    "./sanity.cli.ts",
+    "./sanity.config.ts"
+  ],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2017",
+    "module": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
     "noEmit": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "incremental": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "preserve",
-    "noUnusedLocals": true
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],
-  "exclude": ["node_modules", "studio"]
+    "plugins": [{ "name": "next" }],
+    "paths": { "sanity.config": ["./sanity.config.ts"] }
+  }
 }

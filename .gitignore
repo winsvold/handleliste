@@ -6,3 +6,4 @@ public/studio
 .next
 .idea
 handleliste.iml
+*.tsbuildinfo
