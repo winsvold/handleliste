@@ -72,8 +72,10 @@ async function addItemToHandleliste(input: string, user: string, listName: ListN
   await sanityClient.patch(handlelisteDocId).append("items", [newItem]).commit();
 }
 
+export const useAutocompleteResponse = () => useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
+
 function LeggTilTing(props: Props) {
-  const autocompleteResponse = useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
+  const autocompleteResponse = useAutocompleteResponse();
   const [input, setInput] = useState("");
   const name = useAuth().data?.name ?? "N/A";
 
@@ -88,14 +90,7 @@ function LeggTilTing(props: Props) {
 
   return (
     <StyledForm onSubmit={onSubmit}>
-      <StyledAutocomplete
-        label="Nytt element"
-        value={input}
-        options={
-          autocompleteResponse.data?.options.sort((a, b) => b.timesUsed - a.timesUsed).map((it) => it.name) || []
-        }
-        onChange={setInput}
-      />
+      <StyledAutocomplete label="Nytt element" value={input} onChange={setInput} />
       <Button onClick={() => onSubmit()}>Legg til</Button>
     </StyledForm>
   );
