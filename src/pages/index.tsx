@@ -50,7 +50,7 @@ function Index() {
     <div>
       <Style>
         <h1>Handleliste 🛒</h1>
-        <Flex gap="1rem">
+        <Flex gap="0.5rem 1rem" flexWrap="wrap">
           {lists.map((list) => (
             <Link
               textDecoration={list === currentList ? "underline" : "none"}
