@@ -37,7 +37,7 @@ interface HandleListeResponse {
   items: SanityKeyed<Item>[];
 }
 
-const lists = ["Dagligvarer", "Andre ting", "Kvitfjell"] as const;
+const lists = ["Dagligvarer", "Andre ting", "Ordne", "Sørfra", "Kvitfjell"] as const;
 export type ListName = (typeof lists)[number];
 
 function Index() {
