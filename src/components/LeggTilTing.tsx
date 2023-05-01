@@ -84,7 +84,7 @@ async function addItemToHandleliste(input: string, user: string, listName: ListN
 export const useAutocompleteResponse = () => useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
 
 function LeggTilTing(props: Props) {
-  const { data: autoCompleteData } = useAutocompleteResponse();
+  const { data: autoCompleteData, mutate: reloadAutocompleteData } = useAutocompleteResponse();
   const [input, setInput] = useState("");
   const name = useAuth().data?.name ?? "N/A";
 
@@ -94,6 +94,7 @@ function LeggTilTing(props: Props) {
     setInput("");
     await addItemToHandleliste(input, name, props.listName);
     await updateAutocompleteDictionary(input, autoCompleteData);
+    await reloadAutocompleteData();
     props.reload();
   };
 
