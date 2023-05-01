@@ -43,18 +43,22 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
   if (!autocompleteResponse)
     throw new Error("Prøvde å legge til i autocomplete, men kunne ikke sjekke om den allerede fantes.");
 
-  const autoCompleteOption = autocompleteResponse?.options.find((it) => it.name === input);
+  const cleanedInput = input.trim();
+
+  const autoCompleteOption = autocompleteResponse?.options.find(
+    (it) => it.name.toLowerCase() === cleanedInput.toLowerCase()
+  );
 
   if (!autoCompleteOption) {
-    console.log(`${input} fantes ikke i autocomplete fra før, legger til`);
+    console.log(`${cleanedInput} fantes ikke i autocomplete fra før, legger til`);
     const newAutocompleteOption: AutoCompleteOption = {
-      name: input,
+      name: cleanedInput,
       _key: nanoid(),
       timesUsed: 1,
     };
     await sanityClient.patch(autocompleteDocId).append("options", [newAutocompleteOption]).commit();
   } else {
-    console.log(`${input} fantes i autocomplete, bumper bruk med 1`);
+    console.log(`${cleanedInput} fantes i autocomplete, bumper bruk med 1`);
     const updatedAutocompleteOption: AutoCompleteOption = {
       ...autoCompleteOption,
       timesUsed: autoCompleteOption.timesUsed + 1,
