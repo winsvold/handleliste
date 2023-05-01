@@ -26,7 +26,7 @@ const StyledAutocomplete = styled(AutoComplete)`
   flex: 1;
 `;
 
-const autocompleteDocId = "autocomplete";
+export const autocompleteDocId = "autocomplete";
 export const autocompleteQuery = `*[_id == "${autocompleteDocId}"][0]`;
 
 type AutoCompleteOption = {

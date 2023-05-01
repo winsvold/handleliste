@@ -9,6 +9,8 @@ import { Item } from "../sanity/schema.types";
 import { SanityKeyed } from "sanity-codegen";
 import { useState } from "react";
 import { Flex, Link } from "@chakra-ui/react";
+import { CleanUpAutocompleteList } from "../components/CleanUpAutocompleteList";
+import { isDevelopment } from "../utils/environment";
 
 export const handlelisteDocId = "handleListe";
 export const handlelisteQuery = `*[_id == "${handlelisteDocId}"][0]`;
@@ -77,6 +79,7 @@ function Index() {
           )}
         </AlignLeft>
       </Style>
+      {isDevelopment() && <CleanUpAutocompleteList />}
     </div>
   );
 }
