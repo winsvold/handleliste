@@ -3,7 +3,8 @@ import { useCombobox } from "downshift";
 import Input from "./basicComponents/Input";
 import styled from "styled-components";
 import { css } from "styled-components";
-import { useAutocompleteResponse } from "./LeggTilTing";
+import { AutoCompleteOption, useAutocompleteResponse } from "./LeggTilTing";
+import { Box } from "@chakra-ui/react";
 
 const DropdownStyle = styled.ul`
   position: absolute;
@@ -29,12 +30,12 @@ interface Props {
 }
 
 function Autocomplete(props: Props) {
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<AutoCompleteOption[]>([]);
 
   const autoCompleteData = useAutocompleteResponse().data;
 
   const soretdAutocompleteData = useMemo(
-    () => autoCompleteData?.options.sort((a, b) => b.timesUsed - a.timesUsed).map((it) => it.name) || [],
+    () => autoCompleteData?.options.sort((a, b) => b.timesUsed - a.timesUsed) || [],
     [autoCompleteData]
   );
 
@@ -50,14 +51,15 @@ function Autocomplete(props: Props) {
       props.onChange(inputValue || "");
       if (inputValue) {
         const possibleMatches = soretdAutocompleteData.filter((item) =>
-          item.toLowerCase().startsWith(inputValue.toLowerCase())
+          item.name.toLowerCase().startsWith(inputValue.toLowerCase())
         );
         setItems(possibleMatches);
       } else {
         setItems(soretdAutocompleteData);
       }
     },
-    onSelectedItemChange: (change) => change.selectedItem && props.onChange(change.selectedItem),
+    itemToString: (item) => item?.name ?? "N/A",
+    onSelectedItemChange: (change) => change.selectedItem && props.onChange(change.selectedItem.name),
   });
 
   return (
@@ -71,9 +73,12 @@ function Autocomplete(props: Props) {
             <ItemStyle
               {...combobox.getItemProps({ item, index })}
               highLighted={combobox.highlightedIndex === index}
-              key={`${item}${index}`}
+              key={`${item._key}`}
             >
-              {item}
+              {item.name}
+              <Box as="span" fontSize="xs" opacity={0.7} marginLeft=".5em">
+                ({item.timesUsed})
+              </Box>
             </ItemStyle>
           ))}
       </DropdownStyle>

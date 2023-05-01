@@ -29,7 +29,7 @@ const StyledAutocomplete = styled(AutoComplete)`
 export const autocompleteDocId = "autocomplete";
 export const autocompleteQuery = `*[_id == "${autocompleteDocId}"][0]`;
 
-type AutoCompleteOption = {
+export type AutoCompleteOption = {
   name: string;
   timesUsed: number;
   _key: string;
