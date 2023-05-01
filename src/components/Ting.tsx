@@ -51,7 +51,6 @@ function Ting(props: Props) {
   }, [isUpdating, props.ting.checked]);
 
   const onCheck = async (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("e", e.target.checked);
     const oppdatertTing: Item = { ...ting, checked: e.target.checked, checkedBy: user };
     setIsUpdating(true);
     setChecked(e.target.checked);

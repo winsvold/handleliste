@@ -32,6 +32,7 @@ function Autocomplete(props: Props) {
   const [items, setItems] = useState<string[]>([]);
 
   const autoCompleteData = useAutocompleteResponse().data;
+
   const soretdAutocompleteData = useMemo(
     () => autoCompleteData?.options.sort((a, b) => b.timesUsed - a.timesUsed).map((it) => it.name) || [],
     [autoCompleteData]

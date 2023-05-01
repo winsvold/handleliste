@@ -40,9 +40,13 @@ interface Autocomplete {
 }
 
 async function updateAutocompleteDictionary(input: string, autocompleteResponse?: Autocomplete) {
+  if (!autocompleteResponse)
+    throw new Error("Prøvde å legge til i autocomplete, men kunne ikke sjekke om den allerede fantes.");
+
   const autoCompleteOption = autocompleteResponse?.options.find((it) => it.name === input);
 
   if (!autoCompleteOption) {
+    console.log(`${input} fantes ikke i autocomplete fra før, legger til`);
     const newAutocompleteOption: AutoCompleteOption = {
       name: input,
       _key: nanoid(),
@@ -50,6 +54,7 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
     };
     await sanityClient.patch(autocompleteDocId).append("options", [newAutocompleteOption]).commit();
   } else {
+    console.log(`${input} fantes i autocomplete, bumper bruk med 1`);
     const updatedAutocompleteOption: AutoCompleteOption = {
       ...autoCompleteOption,
       timesUsed: autoCompleteOption.timesUsed + 1,
@@ -75,7 +80,7 @@ async function addItemToHandleliste(input: string, user: string, listName: ListN
 export const useAutocompleteResponse = () => useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
 
 function LeggTilTing(props: Props) {
-  const autocompleteResponse = useAutocompleteResponse();
+  const { data: autoCompleteData } = useAutocompleteResponse();
   const [input, setInput] = useState("");
   const name = useAuth().data?.name ?? "N/A";
 
@@ -84,14 +89,14 @@ function LeggTilTing(props: Props) {
     if (input.length === 0) return;
     setInput("");
     await addItemToHandleliste(input, name, props.listName);
-    await updateAutocompleteDictionary(input, autocompleteResponse.data);
+    await updateAutocompleteDictionary(input, autoCompleteData);
     props.reload();
   };
 
   return (
     <StyledForm onSubmit={onSubmit}>
       <StyledAutocomplete label="Nytt element" value={input} onChange={setInput} />
-      <Button onClick={() => onSubmit()}>Legg til</Button>
+      <Button type="submit">Legg til</Button>
     </StyledForm>
   );
 }
