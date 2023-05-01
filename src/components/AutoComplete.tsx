@@ -49,9 +49,7 @@ function Autocomplete(props: Props) {
   const combobox = useCombobox({
     items: autoCompleteOptions,
     inputValue: props.value,
-    onInputValueChange: ({ inputValue }) => {
-      props.onChange(inputValue || "");
-    },
+    onInputValueChange: ({ inputValue }) => props.onChange(inputValue || ""),
     itemToString: (item) => item?.name ?? "N/A",
     onSelectedItemChange: (change) => change.selectedItem && props.onChange(change.selectedItem.name),
   });
