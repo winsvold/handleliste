@@ -52,5 +52,10 @@
   "lint-staged": {
     "*.{js,jsx,json,md,ts,tsx}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint"
+  },
+  "overrides": {
+    "json5": "2.2.3",
+    "postcss": "8.4.23",
+    "loader-utils": "3.2.1"
   }
 }
