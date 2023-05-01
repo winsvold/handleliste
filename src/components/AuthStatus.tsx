@@ -49,7 +49,7 @@ function AuthStatus() {
         {initials}
         {authStatus?.profileImage && (
           <ImageWrapper>
-            <Image src={authStatus?.profileImage} alt="" layout="fill" />
+            <Image src={authStatus?.profileImage} alt="" fill />
           </ImageWrapper>
         )}
       </AuthStyle>

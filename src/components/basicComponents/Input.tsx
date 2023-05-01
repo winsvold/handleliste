@@ -1,5 +1,4 @@
-import { nanoid } from "nanoid";
-import React, { ForwardedRef, InputHTMLAttributes, useRef } from "react";
+import React, { ForwardedRef, InputHTMLAttributes, useId } from "react";
 import styled from "styled-components";
 
 const Style = styled.div`
@@ -25,7 +24,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = (props: Props, ref: ForwardedRef<HTMLInputElement>) => {
-  const id = useRef(nanoid()).current;
+  const id = useId();
+  console.log({ id });
   const { label, className, ...rest } = props;
   return (
     <Style className={className}>
