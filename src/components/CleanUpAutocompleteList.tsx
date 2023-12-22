@@ -22,5 +22,9 @@ export const CleanUpAutocompleteList = () => {
     await sanityClient.patch(autocompleteDocId).set(update).commit();
   };
 
-  return <Button onClick={onClick}>Rydd i lista</Button>;
+  return (
+    <Button onClick={onClick} style={{ position: "absolute", bottom: 0 }}>
+      Rydd i lista
+    </Button>
+  );
 };

@@ -49,7 +49,6 @@ function Autocomplete(props: Props) {
   const combobox = useCombobox({
     items: autoCompleteOptions,
     inputValue: props.value,
-    onInputValueChange: ({ inputValue }) => props.onChange(inputValue || ""),
     itemToString: (item) => item?.name ?? "N/A",
     onSelectedItemChange: (change) => change.selectedItem && props.onChange(change.selectedItem.name),
   });
@@ -57,7 +56,11 @@ function Autocomplete(props: Props) {
   return (
     <div className={props.className}>
       <div {...combobox.getComboboxProps()}>
-        <Input {...combobox.getInputProps({ onFocus: combobox.openMenu })} label={props.label} />
+        <Input
+          {...combobox.getInputProps({ onFocus: combobox.openMenu })}
+          onChange={(e) => props.onChange(e.target.value || "")}
+          label={props.label}
+        />
       </div>
       <DropdownStyle {...combobox.getMenuProps()}>
         {combobox.isOpen &&

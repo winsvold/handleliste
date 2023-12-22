@@ -9,6 +9,7 @@ import AutoComplete from "./AutoComplete";
 import { SanityKeyed } from "sanity-codegen";
 import { useAuth } from "./AuthStatus";
 import { Item } from "../sanity/schema.types";
+import Input from "./basicComponents/Input";
 
 interface Props {
   reload: () => void;
@@ -88,7 +89,7 @@ function LeggTilTing(props: Props) {
   const [input, setInput] = useState("");
   const name = useAuth().data?.name ?? "N/A";
 
-  const onSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+  const onSubmitWithAutocomplete = async (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     if (input.length === 0) return;
     setInput("");
@@ -98,9 +99,26 @@ function LeggTilTing(props: Props) {
     props.reload();
   };
 
+  const onSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    if (input.length === 0) return;
+    setInput("");
+    await addItemToHandleliste(input, name, props.listName);
+    props.reload();
+  };
+
+  if (props.listName === "Dagligvarer" || props.listName === "Kvitfjell" || props.listName === "Netthandel") {
+    return (
+      <StyledForm onSubmit={onSubmitWithAutocomplete}>
+        <StyledAutocomplete label="Nytt element" value={input} onChange={setInput} />
+        <Button type="submit">Legg til</Button>
+      </StyledForm>
+    );
+  }
+
   return (
     <StyledForm onSubmit={onSubmit}>
-      <StyledAutocomplete label="Nytt element" value={input} onChange={setInput} />
+      <Input label={"Nytt element"} value={input} onChange={(e) => setInput(e.target.value)} autoComplete="off" />
       <Button type="submit">Legg til</Button>
     </StyledForm>
   );
