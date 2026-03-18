@@ -1,12 +1,11 @@
 import Button from "./basicComponents/Button";
 import { sanityClient } from "../utils/sanity";
 import { handlelisteDocId } from "../pages";
-import { SanityKeyed } from "sanity-codegen";
-import { Item } from "../sanity/schema.types";
+import { Item } from "../sanity/sanity.types";
 
 interface Props {
   reload: () => void;
-  ting: SanityKeyed<Item>[];
+  ting: (Item & { _key: string })[];
 }
 
 function FjernAvkrysset(props: Props) {

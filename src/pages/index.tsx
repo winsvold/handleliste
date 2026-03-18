@@ -5,8 +5,7 @@ import Ting from "../components/Ting";
 import styled from "styled-components";
 import FjernAvkrysset from "../components/FjernAvkrysset";
 import Spinner from "../components/Spinner";
-import { Item } from "../sanity/schema.types";
-import { SanityKeyed } from "sanity-codegen";
+import { Item } from "../sanity/sanity.types";
 import { useState } from "react";
 import { Flex, Link } from "@chakra-ui/react";
 import { CleanUpAutocompleteList } from "../components/CleanUpAutocompleteList";
@@ -36,14 +35,14 @@ const AlignLeft = styled.div`
 `;
 
 interface HandleListeResponse {
-  items: SanityKeyed<Item>[];
+  items: (Item & { _key: string })[];
 }
 
 const lists = ["Dagligvarer", "Andre ting", "Ordne", "Kvitfjell", "Netthandel", "Middagsplan"] as const;
 export type ListName = (typeof lists)[number];
 
 function Index() {
-  const response = useSWR<HandleListeResponse>(handlelisteQuery, (q) => sanityClient.fetch(q));
+  const response = useSWR<HandleListeResponse>(handlelisteQuery, (q: string) => sanityClient.fetch(q));
   const [currentList, setCurrentList] = useState<ListName>("Dagligvarer");
   const items = response.data?.items.filter((item) => item.listName === currentList) || [];
   const loading = !response.data && !response.error;
@@ -59,6 +58,7 @@ function Index() {
               as="button"
               key={list}
               onClick={() => setCurrentList(list)}
+              color="currentColor"
             >
               {list}
             </Link>

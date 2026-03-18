@@ -3,9 +3,8 @@ import { handlelisteDocId } from "../pages";
 import Checkbox from "./basicComponents/Checkbox";
 import { sanityClient } from "../utils/sanity";
 import { ChangeEvent, useLayoutEffect, useState } from "react";
-import { SanityKeyed } from "sanity-codegen";
 import { useAuth } from "./AuthStatus";
-import { Item } from "../sanity/schema.types";
+import { Item } from "../sanity/sanity.types";
 
 const Style = styled.li`
   width: fit-content;
@@ -33,7 +32,7 @@ const Meta = styled.p`
 `;
 
 interface Props {
-  ting: SanityKeyed<Item>;
+  ting: Item & { _key: string };
   reload: () => void;
 }
 

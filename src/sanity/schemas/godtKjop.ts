@@ -1,11 +1,9 @@
-import { FaWineBottle } from "react-icons/fa";
 import { defineType } from "sanity";
 
 const godtKjop = defineType({
   name: "godtKjop",
   title: "Godt kjøp",
   type: "document",
-  icon: FaWineBottle,
   fields: [
     {
       name: "name",
@@ -23,7 +21,7 @@ const godtKjop = defineType({
       name: "rating",
       type: "number",
       description: "0 - Ok | 1 - Bra | 2 - Veldig bra | 3 - Fantastisk",
-      validation: (Rule: any) => Rule.min(0).max(3),
+      validation: (Rule) => Rule.min(0).max(3),
     },
     {
       name: "kommentar",

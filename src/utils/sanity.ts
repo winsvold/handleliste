@@ -1,9 +1,7 @@
-import { createClient, ClientConfig } from "next-sanity";
-import { definePreview } from "next-sanity/preview";
-import { isProduction } from "./environment";
-import createImageUrlBuilder from "@sanity/image-url";
-import { SanityProjectDetails } from "@sanity/image-url/lib/types/types";
+import createImageUrlBuilder, { type SanityProjectDetails } from "@sanity/image-url";
+import { ClientConfig, createClient } from "next-sanity";
 import sanityConfig from "../sanity/sanity.config";
+import { isProduction } from "./environment";
 
 const config: ClientConfig = {
   dataset: sanityConfig.dataset,
@@ -21,7 +19,5 @@ if (!config.dataset) {
 }
 
 export const urlFor = (source: any) => createImageUrlBuilder(config as SanityProjectDetails).image(source);
-
-export const usePreviewSubscription = definePreview(config as SanityProjectDetails);
 
 export const sanityClient = createClient(config);

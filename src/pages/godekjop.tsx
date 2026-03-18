@@ -50,7 +50,7 @@ export interface GodtKjøpI {
 }
 
 function Index() {
-  const response = useSWR<GodtKjøpI[]>(godekjøpQuery, (q) => sanityClient.fetch(q));
+  const response = useSWR<GodtKjøpI[]>(godekjøpQuery, (q: string) => sanityClient.fetch(q));
   const godeKjøp = response.data || [];
 
   return (

@@ -1,11 +1,11 @@
-import { BiCart } from "react-icons/bi";
+import { ShoppingCart } from "react-feather";
 import { defineType } from "sanity";
 
 export default defineType({
   type: "document",
   name: "handleListe",
   title: "Handleliste",
-  icon: BiCart,
+  icon: ShoppingCart,
   fields: [
     {
       name: "items",

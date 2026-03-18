@@ -1,4 +1,4 @@
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import { ChakraProvider, Box, defaultSystem } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import ToppLinje from "../components/ToppLinje";
@@ -8,7 +8,7 @@ const MyApp = ({ Component, pageProps }: any) => {
   const { asPath } = useRouter();
 
   return (
-    <ChakraProvider>
+    <ChakraProvider value={defaultSystem}>
       <Head>
         <title>Handleliste</title>
         <link

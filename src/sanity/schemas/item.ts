@@ -1,12 +1,10 @@
-import { GiCheeseWedge } from "react-icons/gi";
-import { BsCheck } from "react-icons/bs";
 import { defineType } from "sanity";
+import { CheckCircle } from "react-feather";
 
 export default defineType({
   name: "item",
   title: "Item",
   type: "object",
-  icon: GiCheeseWedge,
   fields: [
     {
       name: "name",
@@ -39,10 +37,10 @@ export default defineType({
       name: "name",
       checked: "checked",
     },
-    prepare(selection: any) {
+    prepare(selection) {
       return {
         title: selection.name,
-        media: selection.checked ? BsCheck : null,
+        media: selection.checked ? CheckCircle : null,
       };
     },
   },

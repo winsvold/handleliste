@@ -1,4 +1,4 @@
-import { Autocomplete } from "../sanity/schema.types";
+import { Autocomplete } from "../sanity/sanity.types";
 import { sanityClient } from "../utils/sanity";
 import { autocompleteDocId, useAutocompleteResponse } from "./LeggTilTing";
 import Button from "./basicComponents/Button";
@@ -15,7 +15,7 @@ export const CleanUpAutocompleteList = () => {
     if (!newOptions?.length) throw new Error("Det skjedde en feil");
 
     const update: Partial<Autocomplete> = {
-      // @ts-ignore
+      // @ts-expect-error - dunno
       options: newOptions,
     };
 

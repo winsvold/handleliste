@@ -6,9 +6,8 @@ import styled from "styled-components";
 import { nanoid } from "nanoid";
 import useSWR from "swr";
 import AutoComplete from "./AutoComplete";
-import { SanityKeyed } from "sanity-codegen";
 import { useAuth } from "./AuthStatus";
-import { Item } from "../sanity/schema.types";
+import { Item } from "../sanity/sanity.types";
 import Input from "./basicComponents/Input";
 
 interface Props {
@@ -72,7 +71,8 @@ async function updateAutocompleteDictionary(input: string, autocompleteResponse?
 }
 
 async function addItemToHandleliste(input: string, user: string, listName: ListName) {
-  const newItem: SanityKeyed<Partial<Item>> = {
+  const newItem: Item & { _key: string } = {
+    _type: "item",
     addedBy: user,
     name: input,
     _key: nanoid(),
@@ -82,7 +82,8 @@ async function addItemToHandleliste(input: string, user: string, listName: ListN
   await sanityClient.patch(handlelisteDocId).append("items", [newItem]).commit();
 }
 
-export const useAutocompleteResponse = () => useSWR<Autocomplete>(autocompleteQuery, (q) => sanityClient.fetch(q));
+export const useAutocompleteResponse = () =>
+  useSWR<Autocomplete>(autocompleteQuery, (q: string) => sanityClient.fetch(q));
 
 function LeggTilTing(props: Props) {
   const { data: autoCompleteData, mutate: reloadAutocompleteData } = useAutocompleteResponse();

@@ -1,11 +1,9 @@
-import { MdFlashOn } from "react-icons/md";
 import { defineType } from "sanity";
 
 export default defineType({
   name: "autocomplete",
   title: "Autocomplete",
   type: "document",
-  icon: MdFlashOn,
   fields: [
     {
       name: "options",
