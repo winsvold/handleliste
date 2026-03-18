@@ -95,9 +95,9 @@ function LeggTilTing(props: Props) {
     if (input.length === 0) return;
     setInput("");
     await addItemToHandleliste(input, name, props.listName);
+    props.reload();
     await updateAutocompleteDictionary(input, autoCompleteData);
     await reloadAutocompleteData();
-    props.reload();
   };
 
   const onSubmit = async (e?: FormEvent<HTMLFormElement>) => {
