@@ -1,11 +1,14 @@
-import { ChakraProvider, Box, defaultSystem } from "@chakra-ui/react";
+import { Box, ChakraProvider, defaultSystem, Spinner } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useAuth } from "../components/AuthStatus";
 import ToppLinje from "../components/ToppLinje";
 import { GlobalStyle } from "../styles/GlobalStyle";
 
 const MyApp = ({ Component, pageProps }: any) => {
   const { asPath } = useRouter();
+  const { data: authStatus, error, isLoading } = useAuth();
+  const isLoggedIn = !!authStatus?.name;
 
   return (
     <ChakraProvider value={defaultSystem}>
@@ -24,6 +27,9 @@ const MyApp = ({ Component, pageProps }: any) => {
           <>
             <ToppLinje />
             <GlobalStyle />
+            {error && <p>{error.message}</p>}
+            {isLoading && <Spinner />}
+            {!isLoading && !isLoggedIn && <p>Logg inn eller godkjenn third party cookies</p>}
           </>
         )}
         <main>
