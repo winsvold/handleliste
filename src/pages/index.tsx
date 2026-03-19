@@ -79,6 +79,7 @@ function Index() {
           )}
         </AlignLeft>
       </Style>
+      <p>v.1.13</p>
       {isDevelopment() && <CleanUpAutocompleteList />}
     </div>
   );
